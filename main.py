@@ -29,7 +29,13 @@ def main():
                         continue
 
             print("Set the topic to publish to:")
-            topic = input()
+            while(True):
+                topic = input()
+                if topic == "":
+                    print("Topic must not be empty!")
+                    continue
+                else:
+                    break
 
             print("Set the quality of service level (default 0):")
             while(True):
@@ -39,7 +45,6 @@ def main():
                     break
                 else:
                     if qos in ["0", "1", "2"]:
-                        qos = int(qos)
                         break
                     else:
                         print("Only values 0, 1 and 2 allowed!")
@@ -48,12 +53,13 @@ def main():
             print("Set retain True or False (default False):")
             while(True):
                 retain = input()
+                retain = retain.lower()
                 if retain == "":
                     retain = False
                     break
                 else:
-                    if retain in ["true", "false"]:
-                        if retain == "true":
+                    if retain in ["true", "false", "1", "0"]:
+                        if retain == "true" or retain == "1":
                             retain = True
                         else:
                             retain = False
@@ -61,13 +67,13 @@ def main():
                     else:
                         print("Only true or false allowed!")
                         continue
-            logging.info(f"{hostname} {port} {topic} {qos} {retain}")
+            logging.info(f"[broker: {hostname}:{port}][topic: {topic}][qos: {qos}][retain: {retain}]")
             broker_set = True
         try:
             print("Type in the message:")
             payload = input()
-            logging.info(payload)
-            publish.single(topic, payload, qos, retain, hostname, port)
+            logging.info(f"[message: {payload}]")
+            publish.single(topic, payload, int(qos), retain, hostname, port)
         except KeyboardInterrupt:
             break
 
