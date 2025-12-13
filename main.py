@@ -2,7 +2,7 @@ import paho.mqtt.publish as publish
 import re
 from _lib.logger import setup_logging
 import logging
-
+import readline
 
 def main():
     setup_logging("logs/", "", add_date_to_name=True)
