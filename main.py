@@ -12,7 +12,7 @@ def main():
     print("Mqtt-Publisher")
 
     # default values
-    parameters = Parameters(False, "", "logs/logfile.txt", "192.168.178.100", 1884, "climate/office/+", 0, False)
+    parameters = Parameters(False, "", "logs/logfile.txt", "192.168.1.225", 1883, "test", 0, False)
 
     # parsing command-line arguments
     parser = argparse.ArgumentParser()
